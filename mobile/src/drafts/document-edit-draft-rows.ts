@@ -1,10 +1,7 @@
 import * as z from 'zod'
 import {
-  DEVICE_STORE_MAX_VALUE_LENGTH,
-  encodeDeviceStoreValue
-} from '../device-store/device-store-value-codec'
-import {
   durableDraftRow,
+  fitsDeviceStore,
   pageDraftRowBackend,
   resetDurableDraftRowsForTests,
   workspaceDraftRowKey,
@@ -33,16 +30,6 @@ export function markdownTabDraftKey(scope: WorkspaceDraftScope, tabId: string): 
 
 export function fileEditDraftKey(scope: WorkspaceDraftScope, path: string): string {
   return workspaceDraftRowKey('fileEdit', scope, path)
-}
-
-// A value past the store's cap would be refused and leave older edits behind, so it is not kept at all.
-function fitsDeviceStore(draft: DocumentEditDraft): boolean {
-  const json = JSON.stringify(draft)
-  // At most 3 UTF-8 bytes per code unit, gzip barely grows any input, base64 adds a third: most documents skip the encode.
-  if (json.length * 4 + 1024 <= DEVICE_STORE_MAX_VALUE_LENGTH) {
-    return true
-  }
-  return encodeDeviceStoreValue(draft).length <= DEVICE_STORE_MAX_VALUE_LENGTH
 }
 
 function slotFor(key: string): Slot {
