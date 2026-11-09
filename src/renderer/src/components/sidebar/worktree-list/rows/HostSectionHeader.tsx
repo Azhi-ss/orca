@@ -1,5 +1,5 @@
 import React from 'react'
-import { AlertTriangle, ChevronDown, Loader2, Moon, Server, ServerOff } from 'lucide-react'
+import { AlertTriangle, ChevronDown, Loader2, Server, ServerOff } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
 import { useTranslate } from '@/i18n/use-translate'
@@ -7,7 +7,7 @@ import type { HostHeaderRow } from '../../../../../../shared/sidebar-list/host-s
 import { HostSectionHeaderMenu } from './HostSectionHeaderMenu'
 import { stopRepoHeaderMenuEvent } from './header-event-guards'
 import { getHostHeaderDetail } from './host-header-detail'
-import { getVmStateLabel } from '../../workspace-card/surface/WorktreeCardVmStateBadge'
+import { getVmStateLabel, VmStateIcon } from '../../workspace-card/surface/WorktreeCardVmStateBadge'
 
 function SectionMetricsBadge({ count }: { count: number }): React.JSX.Element {
   const t = useTranslate()
@@ -51,25 +51,6 @@ function HostHeaderHealthIcon({
   return null
 }
 
-const vmBadgeIconClassName = 'size-2'
-
-function VmStateBadgeIcon({
-  state
-}: {
-  state: NonNullable<HostHeaderRow['vmState']>
-}): React.JSX.Element {
-  switch (state) {
-    case 'suspended':
-      return <Moon className={cn(vmBadgeIconClassName, 'text-muted-foreground')} />
-    case 'provisioning':
-    case 'waking':
-      return <Loader2 className={cn(vmBadgeIconClassName, 'animate-spin text-muted-foreground')} />
-    case 'resume_failed':
-    case 'provision_failed':
-      return <AlertTriangle className={cn(vmBadgeIconClassName, 'text-destructive')} />
-  }
-}
-
 /** A VM host's server glyph with its lifecycle as a corner badge, like an avatar's status dot. */
 function VmHostIcon({
   state,
@@ -94,7 +75,7 @@ function VmHostIcon({
           />
           {/* The ring in the sidebar color cuts the badge out of the glyph so it reads at 8px. */}
           <span className="absolute -right-1 -bottom-1 inline-flex size-2.5 items-center justify-center rounded-full bg-worktree-sidebar ring-1 ring-worktree-sidebar">
-            <VmStateBadgeIcon state={state} />
+            <VmStateIcon state={state} sizeClassName="size-2" />
           </span>
         </span>
       </TooltipTrigger>

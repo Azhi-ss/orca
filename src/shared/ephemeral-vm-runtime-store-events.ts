@@ -1,3 +1,6 @@
+/** Main → window signal that runtime records changed; the window re-lists them. */
+export const EPHEMERAL_VM_RUNTIMES_CHANGED_CHANNEL = 'ephemeralVm:runtimesChanged'
+
 type EphemeralVmRuntimesChangedListener = () => void
 const runtimesChangedListeners = new Set<EphemeralVmRuntimesChangedListener>()
 

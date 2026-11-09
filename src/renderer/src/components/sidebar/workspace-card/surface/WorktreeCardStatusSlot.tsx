@@ -333,7 +333,7 @@ export function WorktreeCardStatusSlot({
           <span>{tooltip}</span>
         </TooltipContent>
       </Tooltip>
-      {showStatus && <span className="sr-only">{statusLabel}</span>}
+      {showStatus && <span className="sr-only">{vmState ? statusTooltipLabel : statusLabel}</span>}
     </>
   )
 }

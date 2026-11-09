@@ -1,5 +1,6 @@
 import { ipcRenderer } from 'electron'
 import type { PreloadApi } from '../api-types'
+import { EPHEMERAL_VM_RUNTIMES_CHANGED_CHANNEL } from '../../shared/ephemeral-vm-runtime-store-events'
 
 export const ephemeralVmApi = {
   listRecipes: (args) => ipcRenderer.invoke('ephemeralVm:listRecipes', args),
@@ -21,8 +22,8 @@ export const ephemeralVmApi = {
   suspendWorkspace: (args) => ipcRenderer.invoke('ephemeralVm:suspendWorkspace', args),
   onRuntimesChanged: (callback) => {
     const listener = (): void => callback()
-    ipcRenderer.on('ephemeralVm:runtimesChanged', listener)
-    return () => ipcRenderer.removeListener('ephemeralVm:runtimesChanged', listener)
+    ipcRenderer.on(EPHEMERAL_VM_RUNTIMES_CHANGED_CHANNEL, listener)
+    return () => ipcRenderer.removeListener(EPHEMERAL_VM_RUNTIMES_CHANGED_CHANNEL, listener)
   },
   cleanup: (args) => ipcRenderer.invoke('ephemeralVm:cleanup', args),
   stopCleanup: (args) => ipcRenderer.invoke('ephemeralVm:stopCleanup', args),

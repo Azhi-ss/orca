@@ -70,21 +70,27 @@ export function VmStateTooltipBody({
 
 const iconClassName = 'size-[13px]'
 
-export function VmStateIcon({ state }: { state: ExecutionHostVmState }): React.JSX.Element {
+export function VmStateIcon({
+  state,
+  sizeClassName = iconClassName
+}: {
+  state: ExecutionHostVmState
+  sizeClassName?: string
+}): React.JSX.Element {
   switch (state) {
     case 'suspended':
-      return <Moon className={cn(iconClassName, 'text-muted-foreground')} aria-hidden="true" />
+      return <Moon className={cn(sizeClassName, 'text-muted-foreground')} aria-hidden="true" />
     case 'provisioning':
     case 'waking':
       return (
         <Loader2
-          className={cn(iconClassName, 'animate-spin text-muted-foreground')}
+          className={cn(sizeClassName, 'animate-spin text-muted-foreground')}
           aria-hidden="true"
         />
       )
     case 'resume_failed':
     case 'provision_failed':
-      return <AlertTriangle className={cn(iconClassName, 'text-destructive')} aria-hidden="true" />
+      return <AlertTriangle className={cn(sizeClassName, 'text-destructive')} aria-hidden="true" />
   }
 }
 

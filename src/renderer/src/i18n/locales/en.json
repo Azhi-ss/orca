@@ -22953,7 +22953,6 @@
         "resumeFailed": "The VM could not be resumed. Right-click and choose Resume VM to retry.",
         "provisionFailed": "The VM was not created, or creation was interrupted. Open Settings to destroy or remove it."
       },
-      "resumeRetryHint": "Right-click the workspace and choose Resume VM to retry.",
       "suspendFailed": "Failed to suspend VM workspace"
     }
   },

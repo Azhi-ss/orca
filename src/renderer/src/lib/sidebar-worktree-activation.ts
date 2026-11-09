@@ -69,12 +69,8 @@ export async function resumeEphemeralVmWorkspace(worktreeId: string): Promise<vo
           'auto.lib.sidebarWorktreeActivation.wakeEphemeralVmFailed',
           'Failed to wake ephemeral VM workspace'
         ),
-        {
-          description: `${reason} ${translate(
-            'workspace.vm.resumeRetryHint',
-            'Right-click the workspace and choose Resume VM to retry.'
-          )}`
-        }
+        // The row's Resume failed tooltip says how to retry; not every failed wake leaves one.
+        { description: reason }
       )
       return
     }

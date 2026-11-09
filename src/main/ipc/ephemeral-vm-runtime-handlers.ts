@@ -4,7 +4,10 @@ import {
   listEphemeralVmRuntimes,
   updateEphemeralVmRuntimeStatus
 } from '../../shared/ephemeral-vm-runtime-store'
-import { onEphemeralVmRuntimesChanged } from '../../shared/ephemeral-vm-runtime-store-events'
+import {
+  EPHEMERAL_VM_RUNTIMES_CHANGED_CHANNEL,
+  onEphemeralVmRuntimesChanged
+} from '../../shared/ephemeral-vm-runtime-store-events'
 import type { EphemeralVmRuntimeRecord } from '../../shared/ephemeral-vm-runtimes'
 import { cleanupOwnedEphemeralVmRuntime } from '../ephemeral-vm/owned-runtime-cleanup'
 import { stopEphemeralVmRuntimeCleanup } from '../ephemeral-vm/runtime-cleanup-control'
@@ -16,8 +19,6 @@ import { getRuntimeRecipeContext } from './ephemeral-vm-recipe-context'
 import { ephemeralVmFailure } from '../../shared/ephemeral-vm-failure-copy'
 import { attachEphemeralVmRuntimeToWorkspace } from '../ephemeral-vm/runtime-attachment'
 import { forgetInterruptedEphemeralVmProvision } from '../ephemeral-vm/runtime-provisioning-persistence'
-
-export const EPHEMERAL_VM_RUNTIMES_CHANGED_CHANNEL = 'ephemeralVm:runtimesChanged'
 
 let stopRuntimesChangedBroadcast: (() => void) | null = null
 let runtimesChangedBroadcastQueued = false

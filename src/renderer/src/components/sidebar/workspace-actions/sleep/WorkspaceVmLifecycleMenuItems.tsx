@@ -121,7 +121,9 @@ export function WorkspaceVmLifecycleMenuItems({
       }}
     />
   )
-  return replacesSleep ? (
+  // Sleep and Suspend VM are one action on a running VM; a VM still asleep or waking can have
+  // restored panels only Sleep closes, so both stay.
+  return replacesSleep && action === 'suspend' ? (
     vmItem
   ) : (
     <>
